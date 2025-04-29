@@ -35,7 +35,7 @@ public class PessoaController {
 
     // Excluir uma pessoa
     @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id) {
+    public void deletarPorId(@PathVariable Long id) {
         pessoaService.deletarPorId(id);
     }
 
@@ -51,4 +51,15 @@ public class PessoaController {
         return pessoaService.buscarPorEmail(email);
     }
 
+    @PostMapping("/login")
+    public Pessoa login (@RequestBody Pessoa loginRequest) {
+    	
+    	Pessoa pessoa = pessoaService.autenticarPessoa(loginRequest.getEmail(), loginRequest.getSenha());
+    	
+    	if(pessoa != null) {
+    		return pessoa;
+    	} else {
+    		return null;
+    	}
+    }
 }
